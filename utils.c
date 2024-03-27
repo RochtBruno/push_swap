@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 19:26:31 by bruno             #+#    #+#             */
-/*   Updated: 2024/03/25 19:51:20 by bruno            ###   ########.fr       */
+/*   Created: 2024/03/27 09:12:42 by btaveira          #+#    #+#             */
+/*   Updated: 2024/03/27 12:20:42 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static	int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int	ft_isdigit(int c)
 {
@@ -30,7 +20,17 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char const *s, size_t start, size_t len)
 {
 	size_t		i;
 	char		*str;
@@ -50,3 +50,36 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (str);
 }
 
+long	ft_atol(char *nptr)
+{
+	int		i;
+	long	res;
+	int		signal;
+
+	i = 0;
+	res = 0;
+	signal = 1;
+	if (*nptr == '\0')
+		return (0);
+	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
+	{
+		if (nptr[i] == '-')
+			signal = -1;
+		i++;
+	}
+	while (nptr[i] >= 48 && nptr[i] <= 57)
+	{
+		res = res * 10 + (nptr[i] - 48);
+		i++;
+	}
+	return (res * signal);
+}
+
+void	free_errors(t_stack_node **a)
+{
+	free_stack(a);
+	ft_printf("Error\n");
+	exit(1);
+}
